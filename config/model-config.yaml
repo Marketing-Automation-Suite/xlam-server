@@ -1,0 +1,33 @@
+# Model Configuration
+# Model-agnostic configuration for AI function calling
+
+default:
+  backend: ollama  # Options: ollama, vllm, openai
+  model_name: default
+  base_url: http://localhost:11434
+  tool_format: json  # Options: json, xml, function_calling
+  use_raw_mode: false
+
+# Example configurations for different backends
+ollama:
+  backend: ollama
+  model_name: llama2
+  base_url: http://localhost:11434
+  tool_format: xml
+  use_raw_mode: true
+
+vllm:
+  backend: vllm
+  model_name: meta-llama/Llama-2-7b-chat-hf
+  base_url: http://localhost:8000
+  tool_format: json
+  use_raw_mode: false
+
+openai:
+  backend: openai
+  model_name: gpt-3.5-turbo
+  base_url: https://api.openai.com/v1
+  tool_format: function_calling
+  use_raw_mode: false
+  api_key: ${OPENAI_API_KEY}
+
