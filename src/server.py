@@ -36,6 +36,19 @@ app.add_middleware(
 function_registry = FunctionRegistry()
 
 
+@app.on_event("startup")
+async def startup_event():
+    """Register all function modules on startup"""
+    try:
+        # Register MCP configuration functions
+        from .functions.mcp_configuration import register_mcp_functions
+        register_mcp_functions()
+        logger.info("All function modules loaded")
+    except Exception as e:
+        logger.error(f"Error loading function modules: {str(e)}")
+        # Don't fail startup if function modules can't be loaded
+
+
 class ChatMessage(BaseModel):
     role: str
     content: str
